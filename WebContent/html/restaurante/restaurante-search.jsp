@@ -33,19 +33,12 @@
 			<div class="vl"></div>
 			<div class="busquedaopcion">
 				<div class="busquedaopciontexto">
-					<p>Ubicación</p>
+					<p>Provincia</p>
 				</div>
-				<div class="busquedaopcionclick" id="ubi">
 					<input type="hidden" name="accion" value="buscar">
-					<div class="selectc" id="selectlocld">
-						<select name="localidad" id="locld" form="searchformm">
-							<option value="0" disabled="disabled" selected="selected">Localidad</option>
-							<option value="1">Chantada</option>
-							<option value="2">Monterroso</option>
-							<option value="3">Ourense</option>
-							<option value="4">A Coruña</option>
-							<option value="5">Vigo</option>
-						</select>
+				<div class="busquedaopcionclick" id="ubi" class="ui-widget">
+							<div class="selectc" id="selectlocld">
+  						<input name="provincia" placeholder="Escribir Provincia" id="locld">
 					</div>
 
 				</div>
@@ -183,4 +176,20 @@
 	</div>
 </div>
 
+<script type="text/javascript">
+$( function() {
+	 console.log("entra")
+    var availableTags = <%=request.getAttribute(AttributeNames.PROVINCIAS)%>
+	 console.log(availableTags)
+	 var data = new Array(availableTags.length);
+    for (var i = 0; i<availableTags.length; i++){
+    	data[i] = availableTags[i]['nombre']
+    }
+    console.log(data)
+    $( "#locld" ).autocomplete({
+      source: data
+    });
+  
+  } );
+</script>
 <%@include file="/html/common/footer.jsp"%>

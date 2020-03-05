@@ -7,5 +7,5 @@ public final class AttributeNames {
 	public static final String PRODUCTOS = "productos";
 	public static final String PEDIDOS = "pedidos";
 	public static final String USUARIO = "usuario";
-	public static final String CATEGORIA = "categoria";
+	public static final String PROVINCIAS = "provincias";
 }

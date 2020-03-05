@@ -1,11 +1,12 @@
 <%@include file="/html/common/header.jsp"%>
 <%@page import="es.flasheat.web.util.AttributeNames"%>
-<%@page import="java.util.*, es.flasheat.model.*"%>
+<%@page import="java.util.*, es.flasheat.model.*, com.google.gson.*"%>
 
 
 <div id="content">
 	<div class="topDetalles">
-		<%								
+		<%				
+
 						Restaurante restaurante = (Restaurante) request.getAttribute(AttributeNames.RESTAURANTE);
 						if (restaurante != null) {
 							%>
@@ -122,4 +123,7 @@
 		</div>
 	</div>
 </div>
+<!--
+
+//-->
 <%@include file="/html/common/footer.jsp"%>

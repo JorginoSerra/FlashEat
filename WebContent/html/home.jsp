@@ -1,4 +1,5 @@
 <%@include file="/html/common/header.jsp"%>
+<%@page import="es.flasheat.web.util.AttributeNames"%>
 <div id="content">
 	<div id="containterhome">
 		<div id="busquedahome">
@@ -8,18 +9,29 @@
 					<i class="fa fa-search"></i>
 					<a>Buscar</a>
 				</button>
-				<div class="selectc" id="selectlocld">
-					<select name="localidad" id="locld" form="homeform">
-						<option value="0" disabled="disabled" selected="selected">Selecciona tu localidad</option>
-						<option value="1">Chantada</option>
-						<option value="2">Monterroso</option>
-						<option value="3">Ourense</option>
-						<option value="4">A Coruña</option>
-						<option value="5">Vigo</option>
-					</select>
+				<div class="busquedaopcionclick" id="ubi" class="ui-widget">
+							<div class="selectc" id="selectlocld">
+  						<input name="provincia" placeholder="Escribir Provincia" id="locld">
+					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+$( function() {
+	 console.log("entra")
+    var availableTags = <%=request.getAttribute(AttributeNames.PROVINCIAS)%>
+	 console.log(availableTags)
+	 var data = new Array(availableTags.length);
+    for (var i = 0; i<availableTags.length; i++){
+    	data[i] = availableTags[i]['nombre']
+    }
+    console.log(data)
+    $( "#locld" ).autocomplete({
+      source: data
+    });
+  
+  } );
+</script>
 <%@include file="/html/common/footer.jsp"%>

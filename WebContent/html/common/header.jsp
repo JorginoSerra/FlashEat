@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="/FlashEat/css/flasheat.css" />
 <link rel="shortcut icon" href="/FlashEat/img/FlashEatLogo.ico" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="/FlashEat/js/jquery-3.4.1.min.js"></script>
+<script src="/FlashEat/js/jquery-ui.js"></script>
 </head>
 <body>
 	<div id="containter">

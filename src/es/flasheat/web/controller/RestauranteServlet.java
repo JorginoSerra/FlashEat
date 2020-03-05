@@ -1,6 +1,7 @@
 package es.flasheat.web.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,13 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.gson.Gson;
+
 import es.flasheat.dao.impl.CategoriaDAOImpl;
 import es.flasheat.model.Producto;
+import es.flasheat.model.Provincia;
 import es.flasheat.model.Restaurante;
 import es.flasheat.model.criteria.RestauranteCriteria;
 import es.flasheat.service.ProductoService;
+import es.flasheat.service.ProvinciaService;
 import es.flasheat.service.RestauranteService;
 import es.flasheat.service.impl.ProductoServiceImpl;
+import es.flasheat.service.impl.ProvinciaServiceImpl;
 import es.flasheat.service.impl.RestauranteServiceImpl;
 import es.flasheat.util.DataException;
 import es.flasheat.web.util.AttributeNames;
@@ -34,23 +40,36 @@ public class RestauranteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private RestauranteService restauranteService = null;
 	private ProductoService productoService = null;
-
+	private ProvinciaService provinciaService = null;
+	Gson gson = new Gson();
+	
 	public RestauranteServlet() {
 		super();
 		restauranteService = new RestauranteServiceImpl();
 		productoService = new ProductoServiceImpl();
+		provinciaService = new ProvinciaServiceImpl();
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			List<Provincia> provincias = provinciaService.findByPais("ES");
+			String provinciasJson = gson.toJson(provincias);
+			request.setAttribute(AttributeNames.PROVINCIAS, provinciasJson);
+		} catch (DataException e) {
+			logger.warn("Sacando Provincias JSON", e);
+		}
+		
 		String accion = request.getParameter(ParameterNames.ACCION);
-
+		
 
 		if("buscar".equalsIgnoreCase(accion)) {
 			String comida = request.getParameter("comida"); 
 			String localidad = request.getParameter("localidad"); 
 			String valoracion = request.getParameter("valoracion"); 
 			String envio = request.getParameter("enviogratis"); 
-			Integer idvaloracion = 1;
+			String provincia = request.getParameter("provincia"); 
+			Integer idValoracion = 1;
 
 			RestauranteCriteria restauranteCriteria = new RestauranteCriteria();
 			if(comida != null) {
@@ -67,14 +86,36 @@ public class RestauranteServlet extends HttpServlet {
 			}
 			}
 			if(valoracion != null) {
-				idvaloracion = Integer.valueOf(valoracion); 
-				restauranteCriteria.setValoracion(idvaloracion);
+				idValoracion = Integer.valueOf(valoracion); 
+				restauranteCriteria.setValoracion(idValoracion);
 			}
 			if(localidad != null) {
-				Long idlocalidad = Long.valueOf(localidad); 
-				if(idlocalidad != 0) {
-					restauranteCriteria.setProvincia(idlocalidad);
+				Long idLocalidad = Long.valueOf(localidad); 
+				if(idLocalidad != 0) {
+					restauranteCriteria.setLocalidad(idLocalidad);
 				}
+			}
+			if(provincia != null) {
+				try {
+					List<Provincia> provincias = provinciaService.findByPais("ES");
+					int idposicion = 0;
+					 for (int x = 0; x < provincias.size(); x++) {
+						    if (provincias.get(x).getProvincia().equalsIgnoreCase(provincia)) {
+						    	idposicion = x+1;
+						    	break;
+						    	
+						    }
+						    }logger.debug(idposicion);
+						Long idProvincia= Long.valueOf((long)idposicion); 
+						if(idProvincia != 0) {
+							restauranteCriteria.setIdProvincia(idProvincia);
+						}else {
+							restauranteCriteria.setIdProvincia((long)-1);
+						}
+				} catch (DataException e) {
+					logger.warn("Sacando Provincias JSON", e);
+				}
+
 			}
 			try {
 				List<Restaurante> restaurantes = restauranteService.findByCriteria(restauranteCriteria, "ES");
