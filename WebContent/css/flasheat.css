@@ -318,11 +318,11 @@ form {
 	padding-top: 50px;
 }
 
-#selectlocld {
+.selectlocld {
 	width: 100%;
 }
 
-#locld {
+.locld {
 	background-color: #b3d9a6;
 	font-size: 18px;
 }
@@ -714,11 +714,11 @@ form {
 	width: 80%;
 }
 
-#ubi {
+.ubi {
 	width: 80%;
 }
 
-#ubi #selectlocld #locld {
+.ubi .selectlocld .locld {
 	background-color: white;
 	font-weight: normal;
 	outline: 0;

@@ -5,6 +5,7 @@
 <div id="content">
 
 	<form action="/FlashEat/restaurante" id="searchformm">
+		<input type="hidden" name="accion" value="buscar">
 		<div id="busqueda">
 			<div class="busquedaopcion">
 				<div class="busquedaopciontexto">
@@ -35,14 +36,27 @@
 				<div class="busquedaopciontexto">
 					<p>Provincia</p>
 				</div>
-					<input type="hidden" name="accion" value="buscar">
-				<div class="busquedaopcionclick" id="ubi" class="ui-widget">
-							<div class="selectc" id="selectlocld">
-  						<input name="provincia" placeholder="Escribir Provincia" id="locld">
+				<div class="busquedaopcionclick" class="ui-widget ubi">
+					<div class="selectc selectlocld">
+						<select name="provincia" class="locld" id="provinciaList"
+							onChange="getLocalidades(this.value);">
+						</select>
 					</div>
-
 				</div>
 			</div>
+			<div class="busquedaopcion" id="locanimado" style="display: none;">
+				<div class="busquedaopciontexto">
+					<p>Localidad</p>
+				</div>
+
+				<div class="busquedaopcionclick" class="ui-widget ubi">
+					<div class="selectc selectlocld">
+						<select name="loc" id="localidadList" class="locld">
+						</select>
+					</div>
+				</div>
+			</div>
+
 			<div class="vl"></div>
 			<div class="busquedaopcion">
 				<div class="busquedaopciontexto">
@@ -51,11 +65,6 @@
 				<div class="selectc">
 					<select name="comida" id="slct" form="searchformm">
 						<option value="0">Todas</option>
-						<option value="1">Arabe</option>
-						<option value="2">Hamburguesas</option>
-						<option value="3">Italiana</option>
-						<option value="4">Japonesa</option>
-						<option value="5">Mexicana</option>
 					</select>
 				</div>
 			</div>
@@ -73,13 +82,12 @@
 			</div>
 			<div class="vl"></div>
 			<div class="busquedaopcion">
-				
+
 				<div class="busquedaopcionclick">
 					<div class="demo" id="butserch">
 						<button type="submit" class="btn btn-success">
-					<i class="fa fa-search"></i>
-					<a>Buscar</a>
-				</button>
+							<i class="fa fa-search"></i> <a>Buscar</a>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -90,106 +98,159 @@
 		<div class="restaurant-grid">
 
 			<%
-						List<Restaurante> restaurantes = (List<Restaurante>) request.getAttribute(AttributeNames.RESULTADOS);
-						if (restaurantes != null) {
-							if (restaurantes.size()!=0){
-							for (Restaurante r : restaurantes) {
-					%>
+				List<Restaurante> restaurantes = (List<Restaurante>) request.getAttribute(AttributeNames.RESULTADOS);
+				if (restaurantes != null) {
+					if (restaurantes.size() != 0) {
+						for (Restaurante r : restaurantes) {
+			%>
 
 			<div class="restaurant">
 				<a href="/FlashEat/restaurante?accion=detalle&id=<%=r.getId()%>">
-				<img src="/FlashEat/img/restaurante/<%=r.getId()%>/medium.png" /></a>
+					<img src="/FlashEat/img/restaurante/<%=r.getId()%>/medium.png" />
+				</a>
 				<div class="infoR">
 					<div class="static">
 						<div class="valoracion">
 							<fieldset class="ratingfixed">
-								<%				
-							if(r.getValoracion() != null){
-							for (double i = 1; i<=5; i++) {
-								if(r.getValoracion()==0){
-									%>
+								<%
+									if (r.getValoracion() != null) {
+													for (double i = 1; i <= 5; i++) {
+														if (r.getValoracion() == 0) {
+								%>
 								<p>Sin valoracion</p>
 								<%
-								break;
-								}
-								else if(r.getValoracion()>=i){
-									
-					%>
+									break;
+														} else if (r.getValoracion() >= i) {
+								%>
 
 
-								<input type="radio" id="star<%=i %>" name="valoracion"
-									value="<%=i %>" checked="checked" /><label class="full"
-									for="star<%=i %>"></label>
-								<%}else{%>
+								<input type="radio" id="star<%=i%>" name="valoracion"
+									value="<%=i%>" checked="checked" /><label class="full"
+									for="star<%=i%>"></label>
+								<%
+									} else {
+								%>
 
-								<input type="radio" id="star<%=i %>" name="valoracion"
-									value="<%=i %>" /><label class="vaciorat" for="star<%=i %>"></label>
-								<%}
-								
-								}%>
-								<%}%>
+								<input type="radio" id="star<%=i%>" name="valoracion"
+									value="<%=i%>" /><label class="vaciorat" for="star<%=i%>"></label>
+								<%
+									}
+
+													}
+								%>
+								<%
+									}
+								%>
 							</fieldset>
 						</div>
 					</div>
 					<div class="tipoR">
-						<%=
-									r.getIdCategoria()
-								%>
+						<%=r.getIdCategoria()%>
 					</div>
 				</div>
 				<div class="hl"></div>
 				<div class="textoR">
 					<h2>
-						<%=
-									r.getNombre()
-								%>
+						<%=r.getNombre()%>
 					</h2>
 					<p class="envio">
 						Envio
-						<%if (r.getPrecioEnvio()==0){
-							%>
-							Gratis
-							<% 
-						}else {%>
+						<%
+						if (r.getPrecioEnvio() == 0) {
+					%>
+						Gratis
+						<%
+						} else {
+					%>
 						<%=r.getPrecioEnvio()%>&euro;
-						<%} %>
+						<%
+							}
+						%>
 					</p>
 					<p class="desc">
-						<%=
-									r.getDescuento()
-								%>
+						<%=r.getDescuento()%>
 						% de descuento en pedidos mayores a 40&euro;
 					</p>
 				</div>
 			</div>
 
 			<%
-						}
-						}else{
-							%>
-							<h2 id="noresults">NO SE HAN ENCONTRADO RESULTADOS</h2>
-							<%
-						}
-						}
-					%>
+				}
+					} else {
+			%>
+			<h2 id="noresults">NO SE HAN ENCONTRADO RESULTADOS</h2>
+			<%
+				}
+				}
+			%>
 		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-$( function() {
-	 console.log("entra")
-    var availableTags = <%=request.getAttribute(AttributeNames.PROVINCIAS)%>
-	 console.log(availableTags)
-	 var data = new Array(availableTags.length);
-    for (var i = 0; i<availableTags.length; i++){
-    	data[i] = availableTags[i]['nombre']
-    }
-    console.log(data)
-    $( "#locld" ).autocomplete({
-      source: data
-    });
-  
-  } );
+	$(document).ready(
+			function() {
+				$.ajax({
+					type : "GET",
+					url : "/FlashEat/localizacionws",
+					data : "m=pais&pais=ES",
+					success : function(data) {
+
+						// $("#provincia-list").html(data);	 -- si fuese html
+						$("#provinciaList").append("<option value='0'>Seleccionar Provincia</option>");
+						for (var i = 0; i < data.length; i++) {
+							$("#provinciaList").append(
+									"<option value='" +data[i].id+"'>"
+											+ data[i].nombre + "</option>");
+						}
+
+						$("#localidadList").empty();
+					}
+				});
+				$.ajax({
+					type : "GET",
+					url : "/FlashEat/tipocomidasws",
+					data : "m=all&locate=ES",
+					success : function(data) {
+
+						// $("#provincia-list").html(data);	 -- si fuese html
+
+						for (var i = 0; i < data.length; i++) {
+							$("#slct").append(
+									"<option value='" +data[i].id+"'>"
+											+ data[i].nombre + "</option>");
+						}
+					}
+				});
+			});
+	function getLocalidades(val) {
+		if (val == 0) {
+			$("#locanimado").slideUp("slow", function() {
+				console.log("animacionin realizada")
+			});
+		} else {
+			
+			$("#locanimado").slideDown("slow", function() {
+				console.log("animacionin realizada")
+			});
+			$.ajax({
+				type : "GET",
+				url : "/FlashEat/localizacionws",
+				data : "m=loc&loc=" + val,
+				success : function(data) {
+					console.log(data);
+
+					$("#localidadList").empty();
+					$("#localidadList").append("<option value='0'>Seleccionar Localidad</option>");
+					for (var i = 0; i < data.length; i++) {
+						$("#localidadList").append(
+								"<option value='" +data[i].id+"'>"
+										+ data[i].Nombre + "</option>");
+					}
+
+				}
+			});
+		}
+	}
 </script>
 <%@include file="/html/common/footer.jsp"%>

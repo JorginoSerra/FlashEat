@@ -42,13 +42,12 @@ public class RestauranteServlet extends HttpServlet {
 	private ProductoService productoService = null;
 	private ProvinciaService provinciaService = null;
 	Gson gson = new Gson();
-	
+
 	public RestauranteServlet() {
 		super();
 		restauranteService = new RestauranteServiceImpl();
 		productoService = new ProductoServiceImpl();
 		provinciaService = new ProvinciaServiceImpl();
-		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -59,9 +58,9 @@ public class RestauranteServlet extends HttpServlet {
 		} catch (DataException e) {
 			logger.warn("Sacando Provincias JSON", e);
 		}
-		
+
 		String accion = request.getParameter(ParameterNames.ACCION);
-		
+
 
 		if("buscar".equalsIgnoreCase(accion)) {
 			String comida = request.getParameter("comida"); 
@@ -80,10 +79,10 @@ public class RestauranteServlet extends HttpServlet {
 			}
 
 			if(envio != null) {
-			if("on".equalsIgnoreCase(envio)) {
-				boolean envioGratis=true;
-				restauranteCriteria.setEnvioGratis(envioGratis);
-			}
+				if("on".equalsIgnoreCase(envio)) {
+					boolean envioGratis=true;
+					restauranteCriteria.setEnvioGratis(envioGratis);
+				}
 			}
 			if(valoracion != null) {
 				idValoracion = Integer.valueOf(valoracion); 
@@ -95,27 +94,9 @@ public class RestauranteServlet extends HttpServlet {
 					restauranteCriteria.setLocalidad(idLocalidad);
 				}
 			}
-			if(provincia != null) {
-				try {
-					List<Provincia> provincias = provinciaService.findByPais("ES");
-					int idposicion = 0;
-					 for (int x = 0; x < provincias.size(); x++) {
-						    if (provincias.get(x).getProvincia().equalsIgnoreCase(provincia)) {
-						    	idposicion = x+1;
-						    	break;
-						    	
-						    }
-						    }logger.debug(idposicion);
-						Long idProvincia= Long.valueOf((long)idposicion); 
-						if(idProvincia != 0) {
-							restauranteCriteria.setIdProvincia(idProvincia);
-						}else {
-							restauranteCriteria.setIdProvincia((long)-1);
-						}
-				} catch (DataException e) {
-					logger.warn("Sacando Provincias JSON", e);
-				}
-
+			if(provincia != null && provincia != "") {
+				Long idProvincia = Long.valueOf(provincia);
+				restauranteCriteria.setIdProvincia(idProvincia);
 			}
 			try {
 				List<Restaurante> restaurantes = restauranteService.findByCriteria(restauranteCriteria, "ES");

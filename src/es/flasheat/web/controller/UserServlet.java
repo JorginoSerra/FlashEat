@@ -106,7 +106,7 @@ public class UserServlet extends HttpServlet {
 			String password = request.getParameter(ParameterNames.PASSWORD);
 			logger.debug("Logging email {}",login);
 			try {
-				Usuario u = userService.findByEmail(ParameterNames.LOGIN);
+				Usuario u = userService.findByEmail(login);
 				if (u == null || (!PasswordEncryptionUtil.checkPassword(password, u.getContraseña()))) {
 					response.getWriter().append("Usuario y/o Contraseña incorrecto");				
 				} else {
