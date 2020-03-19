@@ -20,6 +20,8 @@ import es.flasheat.service.ProvinciaService;
 import es.flasheat.service.impl.LocalidadServiceImpl;
 import es.flasheat.service.impl.ProvinciaServiceImpl;
 import es.flasheat.util.DataException;
+import es.flasheat.web.util.ActionNames;
+import es.flasheat.web.util.ParameterNames;
 
 /**
  * Servlet implementation class ProvinciaServiceServlet
@@ -42,18 +44,18 @@ public class LocalizacionServiceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Object result = null;
-			String method = request.getParameter("m");
-			if("nombre".equalsIgnoreCase(method)) {
-				String nombre = request.getParameter("nombre");
+			String method = request.getParameter(ParameterNames.METHOD);
+			if(ActionNames.NOMBRE.equalsIgnoreCase(method)) {
+				String nombre = request.getParameter(ParameterNames.NOMBRE);
 
 				result = provinciaService.findByNombre(nombre);
 
 			}else if ("pais".equalsIgnoreCase(method)) {
-				String pais = request.getParameter("pais");
+				String pais = request.getParameter(ParameterNames.PAIS);
 				result = provinciaService.findByPais(pais);
 			}
 			else if ("loc".equalsIgnoreCase(method)) {
-				String loc = request.getParameter("loc");
+				String loc = request.getParameter(ParameterNames.LOCALIDAD);
 				Long idLoc = Long.valueOf(loc);
 				result = localidadService.findByProvincia(idLoc);
 			}

@@ -1,6 +1,6 @@
 package es.flasheat.web.controller;
 import java.io.IOException;
-import java.net.http.HttpResponse;
+//import java.net.http.HttpResponse;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -86,7 +86,7 @@ public class UserServlet extends HttpServlet {
 					if(up == null) {
 						response.getWriter().append("Ha ocurrido un error, no se ha podido registrar").append(request.getContextPath());
 					}else {
-						request.getRequestDispatcher("html/home.jsp").forward(request, response);
+						request.getRequestDispatcher(ViewPath.LOGIN).forward(request, response);
 					}
 				}else {
 					response.getWriter().append("Ya existe una cuenta con este correo electrónico").append(request.getContextPath());
@@ -108,10 +108,14 @@ public class UserServlet extends HttpServlet {
 			try {
 				Usuario u = userService.findByEmail(login);
 				if (u == null || (!PasswordEncryptionUtil.checkPassword(password, u.getContraseña()))) {
-					response.getWriter().append("Usuario y/o Contraseña incorrecto");				
+					
+					String errorMsg = "Usuario y/o Contraseña incorrecto";
+					request.setAttribute("error", errorMsg);
+					
+					request.getRequestDispatcher(ViewPath.LOGIN).forward(request, response);
 				} else {
 					request.getSession().setAttribute("usuario", u);
-					request.getRequestDispatcher("html/home.jsp").forward(request, response);
+					request.getRequestDispatcher(ViewPath.HOME).forward(request, response);
 				}
 			} catch (DataException e) {
 				logger.warn("Autenticando "+login, e);

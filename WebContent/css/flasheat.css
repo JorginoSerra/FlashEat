@@ -1118,6 +1118,7 @@ h2, h1 {
 	#registro1 {
 		height: auto;
 	}
+	
 }
 
 /*carrito */
@@ -1253,7 +1254,13 @@ h2, h1 {
     #productosCarrito{
         width: 80%;
         order:1;
+        }
+     .selectc{
+	width: 10em;
+	}
 }
+
+
 #containterCarrito{
     display: flex;
     flex-direction: column;

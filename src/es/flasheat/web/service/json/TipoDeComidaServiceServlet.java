@@ -18,6 +18,8 @@ import es.flasheat.dao.impl.CategoriaDAOImpl;
 import es.flasheat.service.CategoriaService;
 import es.flasheat.service.impl.CategoriaServiceImpl;
 import es.flasheat.util.DataException;
+import es.flasheat.web.util.ActionNames;
+import es.flasheat.web.util.ParameterNames;
 
 /**
  * Servlet implementation class ProvinciaServiceServlet
@@ -38,9 +40,9 @@ public class TipoDeComidaServiceServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Object result = null;
-			String method = request.getParameter("m");
-			if("all".equalsIgnoreCase(method)) {
-				String locate = request.getParameter("locate");
+			String method = request.getParameter(ParameterNames.METHOD);
+			if(ActionNames.ALL.equalsIgnoreCase(method)) {
+				String locate = request.getParameter(ParameterNames.LOCATE);
 				result = categoriaService.findAll(locate);
 			}
 			else {

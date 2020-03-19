@@ -1,5 +1,5 @@
 <%@include file="/html/common/header.jsp"%>
-<%@page import="es.flasheat.web.util.AttributeNames"%>
+<%@page import="es.flasheat.web.util.AttributeNames, es.flasheat.web.util.ParameterNames"%>
 <%@page import="java.util.*, es.flasheat.model.*"%>
 
 <div id="content">
@@ -39,7 +39,7 @@
 				<div class="busquedaopcionclick" class="ui-widget ubi">
 					<div class="selectc selectlocld">
 						<select name="provincia" class="locld" id="provinciaList"
-							onChange="getLocalidades(this.value);">
+							onChange="getLocalidades(this.value, true);">
 						</select>
 					</div>
 				</div>
@@ -203,10 +203,16 @@
 									"<option value='" +data[i].id+"'>"
 											+ data[i].nombre + "</option>");
 						}
-
-						$("#localidadList").empty();
 					}
+				}).done(function() { 
+					document.getElementById("provinciaList").selectedIndex = <%=request.getParameter(ParameterNames.PROVINCIA) %>;
+					console.log("ejectdo localidades -  "+<%=request.getParameter(ParameterNames.PROVINCIA) %>)
+					if (<%=request.getParameter(ParameterNames.PROVINCIA) %> != null){
+						getLocalidades(<%=request.getParameter(ParameterNames.PROVINCIA) %>, false)
+						}
 				});
+
+			
 				$.ajax({
 					type : "GET",
 					url : "/FlashEat/tipocomidasws",
@@ -221,18 +227,34 @@
 											+ data[i].nombre + "</option>");
 						}
 					}
+				}).done(function() { 
+					document.getElementById("slct").selectedIndex = <%=request.getParameter(ParameterNames.COMIDA) %>;
+					console.log("ejectdo comida -  "+<%=request.getParameter(ParameterNames.COMIDA) %>)
+					
+					//Valoracion Guardar Busqueda
+					for (var i = 1; i<=<%=request.getParameter(ParameterNames.VALORACION) %>; i++) {
+						 $("#star"+i).prop("checked", true);
+					 }
+						 
 				});
 			});
-	function getLocalidades(val) {
+
+	function getLocalidades(val, time) {
+		$("#localidadList").empty();
 		if (val == 0) {
 			$("#locanimado").slideUp("slow", function() {
 				console.log("animacionin realizada")
 			});
 		} else {
-			
+			if (time){
 			$("#locanimado").slideDown("slow", function() {
 				console.log("animacionin realizada")
 			});
+			} else{
+			$("#locanimado").slideDown(0, function() {
+				console.log("animacionin realizada")
+			});
+			}
 			$.ajax({
 				type : "GET",
 				url : "/FlashEat/localizacionws",
@@ -240,7 +262,6 @@
 				success : function(data) {
 					console.log(data);
 
-					$("#localidadList").empty();
 					$("#localidadList").append("<option value='0'>Seleccionar Localidad</option>");
 					for (var i = 0; i < data.length; i++) {
 						$("#localidadList").append(
