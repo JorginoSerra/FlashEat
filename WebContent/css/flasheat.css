@@ -298,12 +298,17 @@ body {
 }
 
 #busquedahome p {
-	font-size: 28px;
-	color: grey;
-	margin-left: 50px;
-	font-weight: 500;
+margin:0px;
 }
-
+#busopckhome{
+width: 100%;
+border:2px solid black;
+border-radius: 10px;
+margin-left: 5px;	
+}
+#selectlchome{
+	width:100%;
+}
 form {
 	width: 100%;
 }
@@ -356,6 +361,7 @@ form {
 #homeform {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 }
 
 ::placeholder {
@@ -1115,182 +1121,170 @@ h2, h1 {
 }
 
 /*carrito */
-#procesoCarrito img {
-	margin-top: 50px;
-	margin-left: 50px;
+#procesoCarrito img{
+    margin-top: 50px;
+    margin-left: 50px;
 }
-
 #cantidad {
-	border: solid 2px;
-	width: 10em;
-	height: 2em;
-}
+    border: solid 2px;
+    width: 10em;
+    height: 2em;
 
+}
 #productosCarrito {
-	margin-top: 50px;
-	margin-left: 50px;
-	width: 60%;
+    margin-top: 50px;
+    margin-left: 50px;
+    width: 60%;
+}
+#productosCarrito #labels{
+    display: flex;
+    justify-content: space-between;
+}
+#productosCarrito #labels p{
+ padding: 0px;
+ margin: 0px;
+ margin-left: 15px;
+ font-size: 24px;
+
 }
 
-#productosCarrito #labels {
-	display: flex;
-	justify-content: space-between;
+.productoCarrito{
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    border: 4px solid black;
+    margin-bottom: 50px;
 }
-
-#productosCarrito #labels p {
-	padding: 0px;
-	margin: 0px;
-	margin-left: 15px;
-	font-size: 24px;
-}
-
-.productoCarrito {
-	padding: 20px;
-	width: 100%;
-	display: flex;
-	border: 4px solid black;
-	margin-bottom: 50px;
-}
-
 .productoCarrito img {
-	margin-right: 50px;
-	max-width: 200px;
-	max-height: 200px;
+    margin-right: 50px;
+    max-width: 200px;
+    max-height: 200px;
 }
-
 .productoCarritoinside {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.productoCarritoinside .precio{
+    padding: 0;
+    margin: 0;
+    margin-right: 25px;
+   color: green;
+   font-size: 32px;
+   font-weight: bold;
+}
+.productoCarritoinside h2{
+    padding: 0;
+    margin: 0;
 }
 
-.productoCarritoinside .precio {
-	padding: 0;
-	margin: 0;
-	margin-right: 25px;
-	color: green;
-	font-size: 32px;
-	font-weight: bold;
+#containterCarrito{
+    display: flex;
 }
-
-.productoCarritoinside h2 {
-	padding: 0;
-	margin: 0;
-}
-
-#containterCarrito {
-	display: flex;
-}
-
 #Continuar {
-	width: 40%;
-	display: flex;
-	justify-content: center;
+    width: 40%;
+    display: flex;
+    justify-content: center;
 }
-
 #CarritoDerecha {
-	position: fixed;
+    position: fixed;
 }
+#topCarrito{
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-right: 200px;
 
-#topCarrito {
-	justify-content: center;
-	display: flex;
-	align-items: center;
-	margin-right: 200px;
 }
-
-#topCarrito img {
-	width: 64px;
-	height: 64px;
-	margin-right: 25px;
+#topCarrito img{
+    width: 64px;
+    height: 64px;
+    margin-right: 25px;
 }
-
-#topCarrito p {
-	font-size: 32px;
-	font-weight: bold;
+#topCarrito p{
+    font-size: 32px;
+    font-weight: bold;
 }
+#recuadroCarrito{
 
-#recuadroCarrito {
-	border: 3px solid black;
-	height: 100%;
-	width: 90%;
+    border: 3px solid black;
+    height: 100%;
+    width: 90%;
 }
-
-#recuadroCarrito #recuadroCarrito1 {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+#recuadroCarrito #recuadroCarrito1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-
-#recuadroCarrito #recuadroCarrito1 .precio {
-	color: green;
-	font-size: 32px;
-	font-weight: bold;
+#recuadroCarrito #recuadroCarrito1 .precio{
+   color: green;
+   font-size: 32px;
+   font-weight: bold;
 }
-
-#recuadroCarrito #recuadroCarrito1 p {
-	margin: 1em 1em 0em 1em;
-	font-size: 24px;
-	font-weight: bold;
+#recuadroCarrito #recuadroCarrito1 p{
+    margin:1em 1em 0em 1em;
+    font-size: 24px;
+    font-weight: bold;
 }
-
-#recuadroCarrito p {
-	margin: 0;
-	margin-top: 1em;
-	font-size: 18px;
-	text-align: center;
+#recuadroCarrito p{
+    margin:0;
+    margin-top: 1em;
+    font-size: 18px;
+    text-align: center;
 }
-
-#recuadroCarrito a {
-	text-decoration: none;
-	text-align: center;
-	background-color: green;
-	padding: 1em 2.5em;
-	border: solid black 2px;
-	font-weight: bold;
-	box-shadow: 4px 4px black;
-	margin: auto;
-	margin-top: 2em;
-	margin-bottom: 2em;
-	color: white;
+#recuadroCarrito a{
+    text-decoration: none;
+    text-align: center;
+    background-color: green;
+    padding: 1em 2.5em;
+    border: solid black 2px;
+    font-weight: bold;
+    box-shadow: 4px 4px black;
+    margin:auto;
+    margin-top:2em;
+    margin-bottom:2em;
+    color: white;
+    width: 40%;
+    display: flex;
+    justify-content: center;
 }
 
 @media screen and (max-width:1500px) {
-	#productosCarrito {
-		width: 80%;
-		order: 1;
-	}
-	#containterCarrito {
-		display: flex;
-		flex-direction: column;
-	}
-	#CarritoDerecha {
-		position: relative;
-		align-items: center;
-		justify-items: center;
-	}
-	#topCarrito {
-		visibility: hidden;
-		display: flex;
-		text-align: center;
-		margin-right: 0px;
-	}
-	#recuadroCarrito #recuadroCarrito1 {
-		display: flex;
-		justify-content: space-around;
-	}
-	#Continuar {
-		margin: auto;
-		width: 40%;
-		display: flex;
-		justify-content: center;
-	}
-	#recuadroCarrito {
-		width: 500px;
-		border: 3px solid black;
-		height: 100%;
-	}
-	#procesoCarrito {
-		text-align: center;
-	}
+    #productosCarrito{
+        width: 80%;
+        order:1;
+}
+#containterCarrito{
+    display: flex;
+    flex-direction: column;
+}
+#CarritoDerecha {
+    position: relative;
+    align-items: center;
+    justify-items: center;
+}
+#topCarrito{
+    visibility: hidden;
+    display: flex;
+    text-align: center;
+    margin-right: 0px;
+}
+#recuadroCarrito #recuadroCarrito1{
+    display: flex;
+    justify-content: space-around;
+}
+
+#recuadroCarrito{
+    width: 500px;
+    border: 3px solid black;
+    height: 100%;
+}
+#recuadroCarrito #continuar{
+    margin: auto;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+#procesoCarrito {
+    text-align: center;
 }

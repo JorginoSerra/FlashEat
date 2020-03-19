@@ -40,7 +40,7 @@
     position: relative;
     display: inline-block;
     text-align: center;
-"><a href="shopping-cart-menu.jsp"><img src="/FlashEat/img/carrito.png"></a>
+"><a href="/FlashEat/html/carrito/carrito.jsp"><img src="/FlashEat/img/carrito.png"></a>
 						 <div class="centrado" style="
     position: absolute;
     top: 35%;

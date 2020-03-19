@@ -1,7 +1,6 @@
 package es.flasheat.web.controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -35,6 +34,7 @@ import es.flasheat.web.util.ParameterNames;
  */
 @WebServlet("/restaurante")
 public class RestauranteServlet extends HttpServlet {
+	
 	private static Logger logger = LogManager.getLogger(CategoriaDAOImpl.class.getName());
 
 	private static final long serialVersionUID = 1L;
@@ -42,6 +42,15 @@ public class RestauranteServlet extends HttpServlet {
 	private ProductoService productoService = null;
 	private ProvinciaService provinciaService = null;
 	Gson gson = new Gson();
+	
+	public boolean isInteger(String numero){
+	    try{
+	        Integer.parseInt(numero);
+	        return true;
+	    }catch(NumberFormatException e){
+	        return false;
+	    }
+	}
 
 	public RestauranteServlet() {
 		super();
@@ -64,7 +73,7 @@ public class RestauranteServlet extends HttpServlet {
 
 		if("buscar".equalsIgnoreCase(accion)) {
 			String comida = request.getParameter("comida"); 
-			String localidad = request.getParameter("localidad"); 
+			String localidad = request.getParameter("loc"); 
 			String valoracion = request.getParameter("valoracion"); 
 			String envio = request.getParameter("enviogratis"); 
 			String provincia = request.getParameter("provincia"); 
@@ -88,16 +97,18 @@ public class RestauranteServlet extends HttpServlet {
 				idValoracion = Integer.valueOf(valoracion); 
 				restauranteCriteria.setValoracion(idValoracion);
 			}
+			
 			if(localidad != null) {
 				Long idLocalidad = Long.valueOf(localidad); 
 				if(idLocalidad != 0) {
 					restauranteCriteria.setLocalidad(idLocalidad);
 				}
 			}
-			if(provincia != null && provincia != "") {
+			if(provincia != null && isInteger(provincia)) {
 				Long idProvincia = Long.valueOf(provincia);
+				if (idProvincia != 0) {
 				restauranteCriteria.setIdProvincia(idProvincia);
-			}
+			}}
 			try {
 				List<Restaurante> restaurantes = restauranteService.findByCriteria(restauranteCriteria, "ES");
 				request.setAttribute(AttributeNames.RESULTADOS, restaurantes);
