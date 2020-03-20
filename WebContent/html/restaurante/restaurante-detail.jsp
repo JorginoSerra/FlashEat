@@ -1,15 +1,14 @@
 <%@include file="/html/common/header.jsp"%>
-<%@page import="es.flasheat.web.util.AttributeNames"%>
+<%@page import="es.flasheat.web.util.*, es.flasheat.web.model.*"%>
 <%@page import="java.util.*, es.flasheat.model.*, com.google.gson.*"%>
 
 
 <div id="content">
 	<div class="topDetalles">
-		<%				
-
-						Restaurante restaurante = (Restaurante) request.getAttribute(AttributeNames.RESTAURANTE);
-						if (restaurante != null) {
-							%>
+		<%
+			Restaurante restaurante = (Restaurante) request.getAttribute(AttributeNames.RESTAURANTE);
+			if (restaurante != null) {
+		%>
 		<img
 			src="/FlashEat/img/restaurante/<%=restaurante.getId()%>/medium.png" />
 
@@ -26,31 +25,35 @@
 				<div class="static">
 					<div class="valoracion">
 						<fieldset class="ratingfixed">
-							<%				
-							if(restaurante.getValoracion() != null){
-							for (double i = 1; i<=5; i++) {
-								if(restaurante.getValoracion()==0){
-									%>
+							<%
+								if (restaurante.getValoracion() != null) {
+										for (double i = 1; i <= 5; i++) {
+											if (restaurante.getValoracion() == 0) {
+							%>
 							<p id="novaloracion">Sin valoracion</p>
 							<%
 								break;
+											} else if (restaurante.getValoracion() >= i) {
+							%>
+
+
+							<input type="radio" id="star<%=i%>" name="valoracion"
+								value="<%=i%>" checked="checked" /><label class="full"
+								for="star<%=i%>"></label>
+							<%
+								} else {
+							%>
+
+							<input type="radio" id="star<%=i%>" name="valoracion"
+								value="<%=i%>" /><label class="vaciorat" for="star<%=i%>"></label>
+							<%
 								}
-								else if(restaurante.getValoracion()>=i){
-									
-					%>
 
-
-							<input type="radio" id="star<%=i %>" name="valoracion"
-								value="<%=i %>" checked="checked" /><label class="full"
-								for="star<%=i %>"></label>
-							<%}else{%>
-
-							<input type="radio" id="star<%=i %>" name="valoracion"
-								value="<%=i %>" /><label class="vaciorat" for="star<%=i %>"></label>
-							<%}
-								
-								}%>
-							<%}%>
+										}
+							%>
+							<%
+								}
+							%>
 						</fieldset>
 					</div>
 				</div>
@@ -70,13 +73,17 @@
 					<img src="/FlashEat/img/bicicleta.png" />
 					<p>
 						Envio:
-						<%if (restaurante.getPrecioEnvio()==0){
-							%>
+						<%
+						if (restaurante.getPrecioEnvio() == 0) {
+					%>
 						Gratis
-						<% 
-						}else {%>
+						<%
+						} else {
+					%>
 						<%=restaurante.getPrecioEnvio()%>&euro;
-						<%} %>
+						<%
+							}
+						%>
 					</p>
 				</div>
 				<div class="infoD">
@@ -97,10 +104,13 @@
 		</div>
 		<div id="productos">
 			<%
-                  		List<Producto> productos =  (List<Producto>) request.getAttribute(AttributeNames.PRODUCTOS);
-						if (productos != null) {
-							for (Producto p : productos) {
-					%>
+				
+				List<Producto> productos = (List<Producto>) request.getAttribute(AttributeNames.PRODUCTOS);
+					if (productos != null) {
+						int i = 0;
+						for (Producto p : productos) {
+							
+			%>
 			<div class="producto">
 				<img src="/FlashEat/img/<%=p.getId()%>.png" />
 				<div class="productoDatos">
@@ -110,20 +120,31 @@
 						</p>
 					</div>
 					<div class=productoDatosinside>
-						<p class="descripcion"><%=p.getDescripcion() %></p>
-						<a href="#" class=anadirCarrito>Añadir al carrito</a>
+						<p class="descripcion"><%=p.getDescripcion()%></p>
+						<form id="cartadd<%=i %>" action="/FlashEat/carrito" method="get">
+						<input type="hidden" name="accion" value="addtocart">
+						<input type="hidden" name=<%=ParameterNames.RESTAURANTE%> value="<%=p.getIdRestaurante()%>"/>
+						<input type="hidden" name=<%=ParameterNames.PRODUCTO%> value="<%=p.getId()%>"/>
+						<input type="hidden" name=<%=ParameterNames.PRECIO%> value="<%=p.getPrecio()%>"/>
+						<input type="number" name=<%=ParameterNames.UNIDADES%> value="1"/>
+						</form>
+						<button type="submit" form="cartadd<%=i++ %>"  class="anadirCarrito" onmouseover="ponter(this)">Añadir al carrito</button>
 					</div>
 				</div>
 			</div>
+			
 			<%
-							}
-							}
-							}
-						%>
+				}
+					}
+				}
+			%>
 		</div>
 	</div>
 </div>
-<!--
+ <script>
+            function ponter(x) {
+              x.style.cursor="pointer";
+            }
+      </script>
 
-//-->
 <%@include file="/html/common/footer.jsp"%>

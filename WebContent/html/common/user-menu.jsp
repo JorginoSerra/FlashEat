@@ -1,1 +1,1 @@
-<a href="FlashEatBusqueda.html"><img src="/FlashEat/img/user.png"/></a>
+<a href="/FlashEat/html/user/edit-profile.jsp"><img src="/FlashEat/img/user.png"/></a>

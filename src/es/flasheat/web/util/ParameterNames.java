@@ -25,6 +25,10 @@ public final class ParameterNames {
 	
 	public static final String LOCATE = "locate";
 	
+	public static final String RESTAURANTE = "restaurante";
+	public static final String PRODUCTO = "producto";
+	public static final String UNIDADES = "unidades";
+	public static final String PRECIO = "precio";
 	
 	
 	

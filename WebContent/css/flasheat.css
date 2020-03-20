@@ -1121,6 +1121,7 @@ h2, h1 {
 	
 }
 
+
 /*carrito */
 #procesoCarrito img{
     margin-top: 50px;
@@ -1207,7 +1208,8 @@ h2, h1 {
     font-weight: bold;
 }
 #recuadroCarrito{
-
+    display: flex;
+    flex-direction: column;
     border: 3px solid black;
     height: 100%;
     width: 90%;
@@ -1243,24 +1245,15 @@ h2, h1 {
     box-shadow: 4px 4px black;
     margin:auto;
     margin-top:2em;
-    margin-bottom:2em;
+    margin-bottom:1em;
     color: white;
-    width: 40%;
-    display: flex;
-    justify-content: center;
 }
 
 @media screen and (max-width:1500px) {
     #productosCarrito{
         width: 80%;
         order:1;
-        }
-     .selectc{
-	width: 10em;
-	}
 }
-
-
 #containterCarrito{
     display: flex;
     flex-direction: column;
@@ -1280,18 +1273,124 @@ h2, h1 {
     display: flex;
     justify-content: space-around;
 }
-
-#recuadroCarrito{
-    width: 500px;
-    border: 3px solid black;
-    height: 100%;
-}
-#recuadroCarrito #continuar{
+#Continuar {
     margin: auto;
     width: 40%;
     display: flex;
     justify-content: center;
 }
+#recuadroCarrito{
+    width: 100%;
+    border: 3px solid black;
+    height: 100%;
+}
 #procesoCarrito {
     text-align: center;
+}
+}
+
+
+/*PROCESO DE PAGO DIRECCIONES */
+
+#containterDirecciones {
+    justify-content: space-between;
+    display: flex;
+    margin-left: 30px;
+    margin-bottom: 0px;
+    flex-wrap: wrap;
+}
+
+#titulosdireccion{
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 15px;
+    font-size: 24px;
+    font-weight: bold;
+}
+.cartD{
+    top: 250px;
+}
+.cuadrodireccion {
+    padding: 20px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+.cuadrodireccion p{
+font-size: 16px;
+}
+.nombreD{
+    margin-top: 0px;
+    text-align: center;
+    font-size: 18px !important;
+    font-weight: bold;
+}
+.calleD{
+    padding: 0px;
+    margin: 0px;
+}
+.localidadD{
+    padding: 0px;
+    margin: 0px;
+}
+.telefD{
+    padding: 0px;
+    margin: 0px;
+}
+.elegir{
+    text-decoration: none;
+    text-align: center;
+    background-color: green;
+    padding: 0.2em 0.5em;
+    border: solid black 2px;
+    font-weight: bold;
+    box-shadow: 2px 2px black;
+    color: white;
+}
+.modifD {
+    margin-top: 20px;
+    color: blue;
+    text-align: center;
+    display: block;
+}
+.centrarbotonD{
+  text-align: center;
+  margin-top:30px;
+  margin-bottom:20px ;
+}
+.iconoplusD{
+    font-size: 100px;
+    color:green;
+}
+.procesoCarritoD{
+    padding-top:50px;
+}
+@media screen and (max-width:1500px) {
+    .productosCarritoD{
+        width: 100% !important;
+        margin-top: 150px !important;
+}
+.productosCarritoD {
+         margin-left: 0px !important;
+}
+
+}
+
+#crearDireccion{
+    top: 30%;
+    left: 30%;
+    height: 50%;
+    width: 25%;
+    background-color: rgb(255, 255, 255);
+    position: absolute;
+}
+#crearDireccionf{
+    z-index: 9999;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(76, 76, 76, 0.56);
+    position: absolute;
+}
+.busquedaopcionclick {
+    margin: 20px 10px;
 }

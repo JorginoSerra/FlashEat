@@ -11,4 +11,6 @@ public final class ActionNames {
 	
 	public static final String ALL = "all";
 	
+	public static final String ADDTOCART = "addtocart";
+	
 }

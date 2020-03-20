@@ -10,4 +10,5 @@ public final class AttributeNames {
 	public static final String PROVINCIAS = "provincias";
 	public static final String ERROR = "error";
 	
+	public static final String CARRITO = "carrito";
 }

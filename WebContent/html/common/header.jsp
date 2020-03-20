@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@page import="es.flasheat.web.util.*, es.flasheat.web.model.*"%>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,6 +13,7 @@
 <script src="/FlashEat/js/jquery-ui.js"></script>
 </head>
 <body>
+<%Carrito cart = (Carrito) SessionManager.get(request,AttributeNames.CARRITO);%>
 	<div id="containter">
 		<div id="top">
 			<div id="top1">
@@ -47,7 +49,9 @@
     left: 55%;
     transform: translate(-50%, -50%);
     color: white;
-">1</div></div>
+"> <% 
+                  	if (cart!=null && cart.getLineas().size() != 0) {
+                 		 %><%=cart.getLineas().size()%><%}else { %>0<%} %></div></div>
 				</div>
 				<div id="top2_2">
 					<a href="/FlashEat/html/home.jsp"><img
