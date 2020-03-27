@@ -20,7 +20,6 @@
 if (c != null){
 	for (LineaCarrito l: c.getLineas()) {
 		precioTotal += l.getProducto().getPrecio() * l.getUnidad();
-		
 		%>
 			<div class="productoCarrito">
 				<img src="../../img/hamburguesa-doble.png" />

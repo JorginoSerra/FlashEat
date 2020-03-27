@@ -41,5 +41,6 @@ $(document).ready(
 				}
 			});
 			});
+			
 </script>
 <%@include file="/html/common/footer.jsp"%>
